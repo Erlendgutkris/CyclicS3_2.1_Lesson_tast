@@ -5,7 +5,7 @@ const s3 = new AWS.S3()
 
 /* GET home page. */
 router.get('/', async function(req, res, next){
-  let my_file = await s3.getObject({
+  let my_file = await s3.getObject({ //Leser fra lageret
     Bucket: "cyclic-jade-fluffy-scorpion-eu-west-1",
     Key: "message.json"
   }).promise()
@@ -23,7 +23,7 @@ router.post("/", async function(req, res){
   const messageObj = {
     message:message
   }
-  await s3.putObject({
+  await s3.putObject({ //Skriver til lageret 
     Body: JSON.stringify(messageObj, null, 2),
     Bucket: "cyclic-jade-fluffy-scorpion-eu-west-1",
     Key: "message.json"
