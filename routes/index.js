@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+const AWS = require("aws-sdk");
+const s3 = new AWS.S3()
 
 /* GET home page. */
 router.get('/', async (req, res, next)=> {
