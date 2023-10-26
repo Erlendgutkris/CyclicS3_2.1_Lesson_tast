@@ -4,9 +4,9 @@ const AWS = require("aws-sdk");
 const s3 = new AWS.S3()
 
 /* GET home page. */
-router.get('/', async (req, res, next)=> {
+router.get('/', async function(req, res, next){
   let my_file = await s3.getObject({
-    Bucket: "cyclic-jade-fluffy-scorpion-eu-west-1",
+    Bucket: process.env.cyclic-jade-fluffy-scorpion-eu-west-1,
     Key: "message.json"
   }).promise()
 
@@ -18,15 +18,20 @@ router.get('/', async (req, res, next)=> {
   });
 });
 
-router.post("/", async (req, res)=>{
+router.post("/", async function(req, res){
   const {message} = req.body;
-  await  save({
-    myMessage:message
-  });
+  const messageObj = {
+    message:message
+  }
+  await s3.putObject({
+    Body: JSON.stringify(messageObj, null, 2),
+    Bucket: process.env.cyclic-jade-fluffy-scorpion-eu-west-1,
+    Key: "message.json"
+  }).promise()
   res.json({
     status: "success",
-    myMessage: message
-  });
+    message:message
+  })
 });
 
 module.exports = router;
