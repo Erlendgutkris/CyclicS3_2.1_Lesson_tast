@@ -4,7 +4,7 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', async (req, res, next)=> {
   let my_file = await s3.getObject({
-    Bucket: "",
+    Bucket: "cyclic-jade-fluffy-scorpion-eu-west-1",
     Key: "message.json"
   }).promise()
 
@@ -12,7 +12,7 @@ router.get('/', async (req, res, next)=> {
 
   res.json({ 
     status: 'success',
-    result: "result"
+    result: myMessage
   });
 });
 

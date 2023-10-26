@@ -7,7 +7,7 @@ const save = async (myMessage) => {
   console.log("saving");
   await s3.putObject({
     Body: JSON.stringify(myMessage, null, 2),
-    Bucket: "",
+    Bucket: "cyclic-jade-fluffy-scorpion-eu-west-1",
     Key: "message.json",
   }).promise()
 };
